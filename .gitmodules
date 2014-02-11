@@ -1,0 +1,3 @@
+[submodule "Resources/Private/Php/PHP-PayPal-IPN"]
+	path = Resources/Private/Php/PHP-PayPal-IPN
+	url = git@github.com:aijko/PHP-PayPal-IPN.git

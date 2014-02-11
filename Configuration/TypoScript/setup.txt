@@ -1,0 +1,83 @@
+
+
+
+################################################
+#   Paypal Settings
+#
+
+	plugin.tx_paypal {
+
+		view {
+			templateRootPath = {$plugin.tx_paypal.view.templateRootPath}
+			partialRootPath = {$plugin.tx_paypal.view.partialRootPath}
+			layoutRootPath = {$plugin.tx_paypal.view.layoutRootPath}
+		}
+
+		persistence {
+			storagePid = {$plugin.tx_paypal.persistence.storagePid}
+		}
+
+		settings {
+			seller {
+				email = seller_1326185631_biz@ict.de
+				cert_id = DB4287G485PQU
+			}
+
+			developerMode = {$plugin.tx_paypal.settings.developerMode}
+			uri = https://www.paypal.com/cgi-bin/webscr
+			host = www.paypal.com
+			cmd = _cart
+			upload = 1
+			currency_code = EUR
+			admin {
+				email = julian.kleinhans@aijko.de
+			}
+		}
+	}
+
+	# Developer mode
+	[globalVar = LIT:1 = {$plugin.tx_paypal.settings.developerMode}]
+		plugin.tx_paypal {
+			settings {
+				uri = https://www.sandbox.paypal.com/cgi-bin/webscr
+				host = www.sandbox.paypal.com
+			}
+		}
+	[global]
+
+
+
+################################################
+#   IPN
+#
+	paypalIpnListener = PAGE
+	paypalIpnListener {
+		typeNum = 986532
+		config {
+			disableAllHeaderCode = 1
+			removeDefaultJS = 1
+			disablePrefixComment = 1
+			admPanel = 0
+			additionalHeaders = Content-type:text/plain
+		}
+
+		10 = USER
+		10 {
+			userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+			pluginName = IPN
+			extensionName = Paypal
+			vendorName = Aijko
+			controller = Ipn
+			action = receive
+
+			switchableControllerActions {
+				Ipn {
+					1 = receive
+				}
+			}
+
+			settings =< plugin.tx_paypal.settings
+			persistence =< plugin.tx_paypal.persistence
+			view =< plugin.tx_paypal.view
+		}
+	}

@@ -1,0 +1,22 @@
+
+	plugin.tx_paypal {
+
+		view {
+			# cat=plugin.tx_paypal/file; type=string; label=Path to template root (FE)
+			templateRootPath = EXT:paypal/Resources/Private/Templates/
+
+			# cat=plugin.tx_paypal/file; type=string; label=Path to template partials (FE)
+			partialRootPath = EXT:paypal/Resources/Private/Partials/
+
+			# cat=plugin.tx_paypal/file; type=string; label=Path to template layouts (FE)
+			layoutRootPath = EXT:paypal/Resources/Private/Layouts/
+		}
+		persistence {
+			# cat=plugin.tx_paypal//a; type=int+; label=Default storage PID
+			storagePid =
+		}
+
+		settings {
+			developerMode = 1
+		}
+	}
