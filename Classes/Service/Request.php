@@ -58,7 +58,7 @@ class Request {
 	/**
 	 * @var array
 	 */
-	protected $userData;
+	protected $data;
 
 	/**
 	 * @var float
@@ -67,47 +67,47 @@ class Request {
 
 	/**
 	 * Inject all dependencies, DI is not available here
-	 *
-	 * @param array $userData
-	 * @param float $tax
 	 */
-	public function __construct(array $userData = array(), $tax = 0.0) {
+	public function __construct() {
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$this->securityService = $this->objectManager->get('Aijko\\Paypal\\Service\\Security');
 		$this->configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 		$pluginConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'paypal');
 		$this->settings = $pluginConfiguration['settings'];
 		$this->securityService->injectSettings($this->settings);
-
-		$this->setTax($tax);
-		$this->setUserData($userData);
-	}
-
-	/**
-	 * @param array $userData
-	 */
-	public function setUserData(array $userData) {
-		$this->userData = $this->mergeWithGlobalData($userData);
 	}
 
 	/**
 	 * @param float $tax
+	 * @return \Aijko\Paypal\Service\Request
 	 */
 	public function setTax($tax) {
 		$this->tax = (float)$tax;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return \Aijko\Paypal\Service\Request
+	 */
+	public function setData(array $data) {
+		$this->data = $this->mergeWithGlobalData($data);
+		return $this;
 	}
 
 	/**
 	 * @return void
 	 */
 	public function process() {
-		echo '
+		$content = '
 			<form action="' . $this->settings['request']['url'] . '" method="post" name="paypalForm">
 				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="encrypted" value="' . $this->securityService->encrypt($this->userData) . '"/>
+				<input type="hidden" name="encrypted" value="' . $this->securityService->encrypt($this->data) . '"/>
 				<input type="submit" value="Paypal"/>
 			</form>
 		';
+
+		echo $content;
 	}
 
 	/**
@@ -115,7 +115,7 @@ class Request {
 	 * @return array
 	 */
 	protected function mergeWithGlobalData($data) {
-		$totalNetPrice = $data['amount_1']*$data['quantity_1'];
+		$totalNetPrice = $data['amount_1']*$data['quantity_1']; // TODO change later for basket behaviour
 		return array_merge(array(
 			'cmd' => $this->settings['request']['cmd'],
 			'business' => $this->settings['seller']['email'],
