@@ -1,4 +1,5 @@
 <?php
+namespace Aijko\Paypal\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -24,20 +25,27 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-if (!defined('TYPO3_MODE')) die ('Access denied.');
+/**
+ * Sofortige Zahlungsbestätigung (IPN)
+ *
+ * @author Julian Kleinhans <julian.kleinhans@aijko.de>
+ * @copyright Copyright belongs to the respective authors
+ * @package paypal
+ */
+class IpnListenerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-// Configure plugin
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY,
-	'IPN',
-	array(
-		'IpnListener' => 'receive',
+	/**
+	 * @param string $a
+	 * @param string $b
+	 *
+	 * @return string
+	 */
+	public function receiveAction($a = '', $b = '') {
 
-	),
-	// non-cacheable actions
-	array(
-		'IpnListener' => 'receive',
-	)
-);
+		mail('julian.kleinhans@aijko.com', 'Test', print_r($_GET, TRUE), print_r($_POST, TRUE), print_r($_SERVER, TRUE), print_r($a, TRUE), print_r($b, TRUE));
 
+		return "OK";
+	}
+
+}
 ?>

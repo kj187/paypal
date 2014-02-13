@@ -1,4 +1,5 @@
 <?php
+namespace Aijko\Paypal\Utility;
 
 /***************************************************************
  *  Copyright notice
@@ -24,20 +25,23 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-if (!defined('TYPO3_MODE')) die ('Access denied.');
+/**
+ * @author Julian Kleinhans <julian.kleinhans@aijko.de>
+ * @copyright Copyright belongs to the respective authors
+ * @package paypal
+ */
+class Math {
 
-// Configure plugin
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY,
-	'IPN',
-	array(
-		'IpnListener' => 'receive',
+	/**
+	 * @param float $totalNetPrice
+	 * @param float $tax
+	 * @return float
+	 */
+	public static function calculateTax($totalNetPrice, $tax) {
+		$totalGrossPrice = round($totalNetPrice + (($totalNetPrice / 100) * $tax), 2);
+		return round((($totalGrossPrice * 100) / (100 + $tax)) * ($tax / 100), 2);
+	}
 
-	),
-	// non-cacheable actions
-	array(
-		'IpnListener' => 'receive',
-	)
-);
+}
 
 ?>

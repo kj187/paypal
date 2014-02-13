@@ -1,4 +1,5 @@
 <?php
+namespace Aijko\Paypal\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -24,20 +25,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-if (!defined('TYPO3_MODE')) die ('Access denied.');
+/**
+ * @author Julian Kleinhans <julian.kleinhans@aijko.de>
+ * @copyright Copyright belongs to the respective authors
+ * @package paypal
+ */
+class OrderRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-// Configure plugin
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY,
-	'IPN',
-	array(
-		'IpnListener' => 'receive',
-
-	),
-	// non-cacheable actions
-	array(
-		'IpnListener' => 'receive',
-	)
-);
+}
 
 ?>

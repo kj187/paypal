@@ -18,29 +18,50 @@
 		}
 
 		settings {
+
 			seller {
-				email = seller_1326185631_biz@ict.de
-				cert_id = DB4287G485PQU
+				email = {$plugin.tx_paypal.settings.seller.email}
+				cert_id = {$plugin.tx_paypal.settings.seller.cert_id}
 			}
 
-			developerMode = {$plugin.tx_paypal.settings.developerMode}
-			uri = https://www.paypal.com/cgi-bin/webscr
-			host = www.paypal.com
-			cmd = _cart
-			upload = 1
-			currency_code = EUR
+			context {
+				sandbox = {$plugin.tx_paypal.settings.context.sandbox}
+			}
+
+			request {
+				url = https://www.paypal.com/cgi-bin/webscr
+				cmd = _cart
+				upload = 1
+				currency_code = EUR
+				return_confirmation_uid = {$plugin.tx_paypal.settings.request.return_confirmation_uid}
+				return_cancel_uid = {$plugin.tx_paypal.settings.request.return_cancel_uid}
+			}
+
+			certification {
+				dir = {$plugin.tx_paypal.settings.certification.dir}
+				file {
+					private = {$plugin.tx_paypal.settings.certification.file.private}
+					public = {$plugin.tx_paypal.settings.certification.file.public}
+					public_paypal = {$plugin.tx_paypal.settings.certification.file.public_paypal}
+				}
+			}
+
 			admin {
 				email = julian.kleinhans@aijko.de
+			}
+
+			ipnListener {
+				typeNum = {$plugin.tx_paypal.settings.ipnListener.typeNum}
 			}
 		}
 	}
 
-	# Developer mode
-	[globalVar = LIT:1 = {$plugin.tx_paypal.settings.developerMode}]
+	[globalVar = LIT:1 = {$plugin.tx_paypal.settings.context.sandbox}]
 		plugin.tx_paypal {
 			settings {
-				uri = https://www.sandbox.paypal.com/cgi-bin/webscr
-				host = www.sandbox.paypal.com
+				request {
+					url = https://www.sandbox.paypal.com/cgi-bin/webscr
+				}
 			}
 		}
 	[global]
@@ -52,7 +73,7 @@
 #
 	paypalIpnListener = PAGE
 	paypalIpnListener {
-		typeNum = 986532
+		typeNum = {$plugin.tx_paypal.settings.ipnListener.typeNum}
 		config {
 			disableAllHeaderCode = 1
 			removeDefaultJS = 1
@@ -67,11 +88,11 @@
 			pluginName = IPN
 			extensionName = Paypal
 			vendorName = Aijko
-			controller = Ipn
+			controller = IpnListener
 			action = receive
 
 			switchableControllerActions {
-				Ipn {
+				IpnListener {
 					1 = receive
 				}
 			}

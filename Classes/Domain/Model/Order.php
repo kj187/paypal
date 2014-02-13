@@ -1,5 +1,5 @@
 <?php
-namespace Aijko\Paypal\Controller;
+namespace Aijko\Paypal\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -26,17 +26,54 @@ namespace Aijko\Paypal\Controller;
  ***************************************************************/
 
 /**
- * Sofortige Zahlungsbestätigung (IPN)
- *
  * @author Julian Kleinhans <julian.kleinhans@aijko.de>
  * @copyright Copyright belongs to the respective authors
  * @package paypal
  */
-class IpnController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class Order extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-	public function receiveAction() {
-		return "OK";
+	/**
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $txnid;
+
+	/**
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $identifier;
+
+	/**
+	 * @return string $txnid
+	 */
+	public function getTxnid() {
+		return $this->txnid;
 	}
 
+	/**
+	 * @param string $txnid
+	 * @return void
+	 */
+	public function setTxnid($txnid) {
+		$this->txnid = $txnid;
+	}
+
+	/**
+	 * @return string $identifier
+	 */
+	public function getIdentifier() {
+		return $this->identifier;
+	}
+
+	/**
+	 * @param string $identifier
+	 * @return void
+	 */
+	public function setIdentifier($identifier) {
+		$this->identifier = $identifier;
+	}
+	
 }
+
 ?>

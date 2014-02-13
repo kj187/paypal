@@ -17,6 +17,33 @@
 		}
 
 		settings {
-			developerMode = 1
+
+			seller {
+				email =
+				cert_id =
+			}
+
+			context {
+				sandbox = 1
+			}
+
+			request {
+				return_confirmation_uid =
+				return_cancel_uid =
+			}
+
+			certification {
+				dir =
+				file {
+					private =
+					public =
+					public_paypal = paypal_cert_pem.txt
+				}
+			}
+
+			ipnListener {
+				typeNum = 986532
+			}
+
 		}
 	}
