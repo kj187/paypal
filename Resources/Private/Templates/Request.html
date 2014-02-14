@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js?ver=1.7.0"></script>
+		<script>
+			jQuery(window).load(function(){
+				$('#paypalForm').submit();
+			});
+		</script>
+		<style>
+			#loading {
+				left: 20%;
+				top: 20%;
+				width: 60%;
+				height: 30%;
+				padding: 20px;
+				position: absolute;
+				background:#EEE url({f:uri.image(src: 'EXT:paypal/Resources/Public/Images/ajax-loader-2.gif')}) no-repeat center center;
+			}
+			#inner {
+				position: absolute;
+				bottom: 50px;
+				left: 38%;
+				font-family: Verdana;
+			}
+			.gradient {
+				background: #EEE;
+				border: 1px solid #DDD;
+				background: -moz-linear-gradient(top, #EEE, #FFF);
+				background: -webkit-linear-gradient(top, #eee, #fff);
+				background: -ms-linear-gradient(top, #eee, #fff);
+				background: -o-linear-gradient(top, #eee, #fff);
+				box-shadow: 1px 2px 4px rgba(0,0,0, .2);
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="loading" class="gradient">
+			<div id="inner">
+				<form action="{requestUrl}" method="post" id="paypalForm">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="hidden" name="encrypted" value="{encryptedData}"/>
+					<noscript>
+						<input type="submit" value="Click here if you are not redirected."/>
+					</noscript>
+				</form>
+				Please wait, you will be redirected to paypal.com
+			</div>
+		</div>
+	</body>
+</html>

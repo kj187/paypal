@@ -66,6 +66,11 @@ class Request {
 	protected $tax;
 
 	/**
+	 * @var \Aijko\SharepointConnector\Utility\View
+	 */
+	protected $viewUtility;
+
+	/**
 	 * Inject all dependencies, DI is not available here
 	 */
 	public function __construct() {
@@ -75,6 +80,8 @@ class Request {
 		$pluginConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'paypal');
 		$this->settings = $pluginConfiguration['settings'];
 		$this->securityService->injectSettings($this->settings);
+		$this->viewUtility = $this->objectManager->get('Aijko\\SharepointConnector\\Utility\\View');
+		$this->viewUtility->setTemplateRootPath($pluginConfiguration['view']['templateRootPath']);
 	}
 
 	/**
@@ -99,15 +106,12 @@ class Request {
 	 * @return void
 	 */
 	public function process() {
-		$content = '
-			<form action="' . $this->settings['request']['url'] . '" method="post" name="paypalForm">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="encrypted" value="' . $this->securityService->encrypt($this->data) . '"/>
-				<input type="submit" value="Paypal"/>
-			</form>
-		';
+		echo $this->viewUtility->getStandaloneView(array(
+			'requestUrl' => $this->settings['request']['url'],
+			'encryptedData' => $this->securityService->encrypt($this->data)
+		), 'Request.html')->render();
 
-		echo $content;
+		die();
 	}
 
 	/**
@@ -115,7 +119,7 @@ class Request {
 	 * @return array
 	 */
 	protected function mergeWithGlobalData($data) {
-		$totalNetPrice = $data['amount_1']*$data['quantity_1']; // TODO change later for basket behaviour
+		$totalNetPrice = $data['amount_1']*$data['quantity_1']; // @TODO change later for basket behaviour
 		return array_merge(array(
 			'cmd' => $this->settings['request']['cmd'],
 			'business' => $this->settings['seller']['email'],
