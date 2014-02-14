@@ -1,6 +1,5 @@
 
 
-
 ################################################
 #   Paypal Settings
 #
@@ -18,6 +17,17 @@
 		}
 
 		settings {
+
+			notification {
+				to {
+					email = {$plugin.tx_paypal.settings.notification.to.email}
+					name = {$plugin.tx_paypal.settings.notification.to.name}
+				}
+				from {
+					email = {$plugin.tx_paypal.settings.notification.from.email}
+					name = {$plugin.tx_paypal.settings.notification.from.name}
+				}
+			}
 
 			seller {
 				email = {$plugin.tx_paypal.settings.seller.email}

@@ -31,7 +31,7 @@ namespace Aijko\Paypal\Service;
  *
  * @author Julian Kleinhans <julian.kleinhans@aijko.de>
  * @copyright Copyright belongs to the respective authors
- * @package paypal
+ * @package Aijko\Paypal
  */
 class Request {
 

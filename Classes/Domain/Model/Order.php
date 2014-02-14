@@ -28,7 +28,7 @@ namespace Aijko\Paypal\Domain\Model;
 /**
  * @author Julian Kleinhans <julian.kleinhans@aijko.de>
  * @copyright Copyright belongs to the respective authors
- * @package paypal
+ * @package Aijko\Paypal
  */
 class Order extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
@@ -43,6 +43,25 @@ class Order extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @validate NotEmpty
 	 */
 	protected $identifier;
+
+	/**
+	 * @var string
+	 */
+	protected $response;
+
+	/**
+	 * @param string $response
+	 */
+	public function setResponse($response) {
+		$this->response = $response;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getResponse() {
+		return $this->response;
+	}
 
 	/**
 	 * @return string $txnid

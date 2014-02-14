@@ -1,5 +1,5 @@
 <?php
-namespace Aijko\Paypal\Utility;
+namespace Aijko\Paypal\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -26,20 +26,33 @@ namespace Aijko\Paypal\Utility;
  ***************************************************************/
 
 /**
+ * Notification Service
+ * http://docs.typo3.org/TYPO3/CoreApiReference/ApiOverview/Mail/Index.html
+ *
  * @author Julian Kleinhans <julian.kleinhans@aijko.de>
  * @copyright Copyright belongs to the respective authors
  * @package Aijko\Paypal
  */
-class Math {
+class Notification {
 
 	/**
-	 * @param float $totalNetPrice
-	 * @param float $tax
-	 * @return float
+	 * @param array $from  array('email' => '', 'name' => '')
+	 * @param array $to array('email' => '', 'name' => '')
+	 * @param $subject
+	 * @param $body
+	 * @return boolean
 	 */
-	public static function calculateTax($totalNetPrice, $tax) {
-		$totalGrossPrice = round($totalNetPrice + (($totalNetPrice / 100) * $tax), 2);
-		return round((($totalGrossPrice * 100) / (100 + $tax)) * ($tax / 100), 2);
+	public static function sendNotification(array $from, array $to, $subject, $body) {
+		if (!count($from)) {
+			$from = \TYPO3\CMS\Core\Utility\MailUtility::getSystemFrom();
+		}
+
+		$mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+		return $mail->setFrom(array($from['email'] => $from['name']))
+			->setTo(array($to['email'] => $to['name']))
+			->setSubject($subject)
+			->setBody($body)
+			->send();
 	}
 
 }

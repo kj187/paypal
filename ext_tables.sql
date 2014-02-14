@@ -7,6 +7,7 @@ CREATE TABLE tx_paypal_domain_model_order (
 
 	txnid varchar(255) DEFAULT '' NOT NULL,
 	identifier varchar(255) DEFAULT '' NOT NULL,
+	response text NOT NULL,
 
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 

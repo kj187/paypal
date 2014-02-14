@@ -18,6 +18,17 @@
 
 		settings {
 
+			notification {
+				to {
+					email =
+					name =
+				}
+				from {
+					email =
+					name =
+				}
+			}
+
 			seller {
 				email =
 				cert_id =

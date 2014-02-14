@@ -2,7 +2,7 @@
 $extensionClassesPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('paypal') . '/';
 
 return array(
-	#'Xxx\Xxx' => $extensionClassesPath . 'Resources/Private/Php/xx.php',
+	'IpnListener' => $extensionClassesPath . 'Resources/Private/Php/PHP-PayPal-IPN/ipnlistener.php',
 );
 
 ?>

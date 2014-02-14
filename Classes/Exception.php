@@ -1,10 +1,10 @@
 <?php
-namespace Aijko\Paypal\Utility;
+namespace Aijko\Paypal;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 AIJKO GmbH <info@aijko.de
+ *  (c) 2014 AIJKO GmbH <info@aijko.de>
  *
  *  All rights reserved
  *
@@ -26,21 +26,13 @@ namespace Aijko\Paypal\Utility;
  ***************************************************************/
 
 /**
+ * Class Exception
+ *
  * @author Julian Kleinhans <julian.kleinhans@aijko.de>
  * @copyright Copyright belongs to the respective authors
  * @package Aijko\Paypal
  */
-class Math {
-
-	/**
-	 * @param float $totalNetPrice
-	 * @param float $tax
-	 * @return float
-	 */
-	public static function calculateTax($totalNetPrice, $tax) {
-		$totalGrossPrice = round($totalNetPrice + (($totalNetPrice / 100) * $tax), 2);
-		return round((($totalGrossPrice * 100) / (100 + $tax)) * ($tax / 100), 2);
-	}
+class Exception extends \Exception {
 
 }
 
