@@ -18,6 +18,8 @@
 
 		settings {
 
+			storagePid = {$plugin.tx_paypal.persistence.storagePid}
+
 			notification {
 				to {
 					email = {$plugin.tx_paypal.settings.notification.to.email}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-01-17T20:27:04Z" product-name="sharepoint_connector">
+		<header/>
+		<body>
+			<trans-unit id="tx_paypal_domain_model_order">
+				<source>Order</source>
+			</trans-unit>
+			<trans-unit id="tx_paypal_domain_model_order.txnid">
+				<source>txn id</source>
+			</trans-unit>
+			<trans-unit id="tx_paypal_domain_model_order.identifier">
+				<source>identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_paypal_domain_model_order.response">
+				<source>response</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

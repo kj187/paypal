@@ -50,6 +50,25 @@ class Order extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $response;
 
 	/**
+	 * @var integer
+	 */
+	protected $crdate;
+
+	/**
+	 * @param int $crdate
+	 */
+	public function setCrdate($crdate) {
+		$this->crdate = $crdate;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCrdate() {
+		return $this->crdate;
+	}
+
+	/**
 	 * @param string $response
 	 */
 	public function setResponse($response) {

@@ -29,5 +29,18 @@ if (!defined('TYPO3_MODE')) die ('Access denied.');
 // Add static typoscript file
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Paypal Interface');
 
+// Add TCA
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_paypal_domain_model_order');
+$TCA['tx_paypal_domain_model_order'] = array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:paypal/Resources/Private/Language/locallang_db.xlf:tx_paypal_domain_model_order',
+		'label' => 'txnid',
+		'crdate' => 'crdate',
+		'dividers2tabs' => TRUE,
+
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Order.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_paypal_domain_model_order.gif'
+	),
+);
 
 ?>
